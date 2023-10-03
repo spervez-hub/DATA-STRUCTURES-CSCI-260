@@ -1,0 +1,153 @@
+
+public class Team 
+{
+private String teamName;
+private int teamScore;
+private int teamTime;
+private String teamChannel;
+
+public Team  (String name, int score, int time, String channel) {
+teamName = name;
+teamScore = score;
+teamTime = time;
+teamChannel = channel;
+}
+public String getName() {
+return teamName;
+}
+public int getScore() {
+return teamScore;
+}
+public int getTime() {
+return teamTime;
+5
+}
+public String getChannel() {
+return teamChannel;
+}
+public String toString() {
+return "Team Name: " + teamName + " |Team Score: " + teamScore + " Goal" + " |Time: " + teamTime + "pm EST"+ " |Channel: " + teamChannel;
+}
+}
+import java.util.*;
+
+public class TeamCompiler {
+
+public static void main(String[] args) {
+ArrayList<Team> obj = new ArrayList<Team>();
+Stack<String> teamHistory = new Stack <String>();
+Queue<Team> queue = new LinkedList<Team>(); //Linked list
+
+int actionNumber = 0;
+
+Scanner input = new Scanner(System.in);
+Team team1 = new Team("Liverpool",0,9,"Espn");
+Team team2 = new Team("Manchester United",4,5,"Espn");
+Team team3 = new Team("Real Madrid",2,2,"Espn");
+Team team4 = new Team("Barcelona",0,3,"Fox Sports");
+Team team5= new Team("Leiceter City",3,6,"Univision");
+Team team6 = new Team("Levante",4,9,"Fox Sports");
+Team team7 = new Team("Manchester City",1,4,"Bein Sport");
+Team team8 = new Team("Real Sociedad",4,1,"Bein Sports");
+Team team9 = new Team("Bayern Munich",2,5,"Univision");
+Team team10 = new Team("PSG",3,9,"Fox Deportes");
+
+obj.add(team1);
+obj.add(team2);
+obj.add(team3);
+obj.add(team4);
+obj.add(team5);
+obj.add(team6);
+obj.add(team7);
+7
+obj.add(team8);
+obj.add(team9);
+obj.add(team10);
+
+Boolean standIn = false;
+
+
+while (standIn != true){
+System.out.println("Please Choose a Command: ");
+System.out.println("A = Search for Specific Team \nB = Find the least to most interesting Games going on \nC = Create Watchlist \nD = Quit");
+String userInput = input.nextLine();
+String userTeamInput = "null";
+
+switch (userInput) {
+case "A" :
+System.out.println("Please choose a name of a team from the list!\n");
+System.out.println("Liverpool, Manchester United, Real Madrid, Barcelona, Levante, Leicester City, Manchester City, Real Sociedad, Bayern Munich, PSG.\n");
+
+if(actionNumber != 0) {
+System.out.println("Would you like to use the previous team you searched for?\n");
+String userResponse = input.nextLine();
+if 
+(userResponse.equalsIgnoreCase("yes")) { 
+8
+userTeamInput = teamHistory.peek(); //Stacks
+}
+else if (userResponse.equalsIgnoreCase("no")){
+System.out.println("Please input a team from the
+list: ");
+userTeamInput = input.nextLine();
+}
+}
+else {
+userTeamInput = input.nextLine();
+}
+int indexOfTeam = 0;
+for(int i = 0; i < obj.size(); i++) {
+if
+(userTeamInput.equalsIgnoreCase(obj.get(i).getName())) {
+indexOfTeam = i;
+}
+9
+}
+System.out.println(obj.get(indexOfTeam).toString());
+teamHistory.push(userTeamInput);
+actionNumber++;
+break;
+case "B":
+//Bubble Sort
+int n = obj.size();
+Team num = new Team ("null", 0, 0,"null");
+for(int i = 0; i < n; i++) {
+for(int j = 1; j < (n-i);j++) {
+if(obj.get(j-1).getScore()>obj.get(j).getScore()) {
+num=obj.get(j-1);
+obj.set(j-1, obj.get(j));
+obj.set(j, num);
+}
+}
+}
+for (int i = 0; i < obj.size(); i++) {
+10
+System.out.println(obj.get(i).toString());
+}
+break;
+case "C":
+boolean placeholder = false;
+while(placeholder != true) {
+System.out.println("Please input the team you would like to
+watch, type 'Done' when finished: ");
+String watch1 = input.nextLine();
+if (watch1.equalsIgnoreCase("done")) {
+placeholder = true;
+}else {
+for(int i = 0; i < obj.size(); i++) {
+if (watch1.equalsIgnoreCase(obj.get(i).getName())) {
+queue.add(obj.get(i)); //Queue
+}
+}
+}
+}
+11
+System.out.println("Here is your completed watchlist: ");
+System.out.println(queue);
+break;
+case "D":
+standIn = true;
+}
+}
+}
+}
